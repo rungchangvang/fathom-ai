@@ -307,68 +307,6 @@ p { max-width: 68ch; }
   border-radius: 50%;
 }
 
-/* ---------- pathways (rendered by script.js from PATHWAYS array — spec 4.3) ---------- */
-.pathway-grid {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: 1fr;
-}
-.pathway-card {
-  border: 1px solid var(--shoal);
-  border-radius: 4px;
-  padding: 24px;
-  background: #fff;
-}
-.pathway-code {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--signal);
-  margin: 0 0 12px;
-}
-.pathway-name {
-  font-size: 20px;
-  margin: 0 0 10px;
-}
-.pathway-desc {
-  color: var(--gray-2);
-  font-size: 15px;
-  margin: 0 0 14px;
-}
-.pathway-bullets {
-  list-style: none;
-  margin: 0 0 14px;
-  display: grid;
-  gap: 6px;
-}
-.pathway-bullets li {
-  font-size: 14px;
-  color: var(--ink);
-  padding-left: 16px;
-  position: relative;
-}
-.pathway-bullets li::before {
-  content: "·";
-  position: absolute;
-  left: 0;
-  color: var(--gray-2);
-}
-.pathway-start {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--gray-2);
-  margin: 0;
-  padding-top: 12px;
-  border-top: 1px solid var(--shoal);
-}
-
-@media (min-width: 640px) {
-  .pathway-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1024px) {
-  .pathway-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
 /* ---------- integrity ---------- */
 .integrity-list {
   max-width: var(--max-w);
@@ -436,41 +374,6 @@ p { max-width: 68ch; }
   color: var(--ink);
 }
 .btn-submit { justify-self: start; margin-top: 8px; }
-
-.checkbox-group {
-  border: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 6px;
-}
-.checkbox-group legend {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--gray-2);
-  padding: 0;
-  margin: 0 0 10px;
-}
-.checkbox-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-body);
-  font-size: 15px;
-  color: var(--ink);
-  text-transform: none;
-  letter-spacing: normal;
-  padding: 6px 0;
-  cursor: pointer;
-}
-.checkbox-item input {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--signal);
-  cursor: pointer;
-}
 
 /* the form submits into this — see index.html for why */
 .hidden-frame {
