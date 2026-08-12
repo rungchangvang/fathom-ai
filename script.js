@@ -69,7 +69,55 @@
      }
   --------------------------------------------------------------- */
   var PATHWAYS = [
-    // Populate after SONAR settles. Leave empty to keep this section hidden.
+    {
+      code: "00",
+      name: "Foundations",
+      description: "Python, data, first models. No experience assumed.",
+      bullets: ["first script to first model", "data cleaning and plotting", "how a training loop actually works"],
+      startHere: "no experience"
+    },
+    {
+      code: "01",
+      name: "Competitions",
+      description: "USACO, USA National AI Olympiad.",
+      bullets: ["USACO problem sets", "USA National AI Olympiad prep", "timed practice rounds"],
+      startHere: "existing CS or math background"
+    },
+    {
+      code: "02",
+      name: "Health & Bio",
+      description: "Medical imaging classification, genomics and protein datasets.",
+      bullets: ["chest X-ray classifier", "protein structure basics", "public health forecasting"],
+      startHere: "no experience"
+    },
+    {
+      code: "03",
+      name: "Markets & Decision",
+      description: "Forecasting, quantitative modeling, algorithmic decision-making.",
+      bullets: ["price and demand forecasting", "a simple trading or scheduling model", "decision trees on real data"],
+      startHere: "some code"
+    },
+    {
+      code: "04",
+      name: "Perception & Robotics",
+      description: "Computer vision, control systems.",
+      bullets: ["an object-detection model", "a basic control loop", "sensor data on a real or simulated robot"],
+      startHere: "some code"
+    },
+    {
+      code: "05",
+      name: "Language & Media",
+      description: "NLP, generative models, creative applications.",
+      bullets: ["a text classifier", "a small generative project", "prompt design and evaluation"],
+      startHere: "no experience"
+    },
+    {
+      code: "06",
+      name: "Systems & Safety",
+      description: "Evaluation, red-teaming, interpretability, policy.",
+      bullets: ["testing a model for failure modes", "writing an eval", "a short policy or safety writeup"],
+      startHere: "strong CS or math"
+    }
   ];
 
   function renderPathways(pathways) {

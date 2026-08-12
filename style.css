@@ -386,7 +386,7 @@ p { max-width: 68ch; }
   content: counter(item);
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--sounding);
+  color: var(--signal);
   position: absolute;
   left: 0;
   top: 15px;
@@ -437,19 +437,60 @@ p { max-width: 68ch; }
 }
 .btn-submit { justify-self: start; margin-top: 8px; }
 
-/* confirmation panel — hidden by default.
-   Two ways to reveal it, see index.html comments:
-   1. no-JS: the #confirmed:target rule below (backend redirects here)
-   2. JS: script.js swaps #join-panel's content directly on submit */
+.checkbox-group {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+.checkbox-group legend {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-2);
+  padding: 0;
+  margin: 0 0 10px;
+}
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: normal;
+  padding: 6px 0;
+  cursor: pointer;
+}
+.checkbox-item input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--signal);
+  cursor: pointer;
+}
+
+/* the form submits into this — see index.html for why */
+.hidden-frame {
+  display: none;
+}
+
+.noscript-note {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--gray-2);
+}
+
+/* confirmation panel — hidden by default. script.js reveals it once the
+   hidden iframe reports the submission finished loading (see script.js). */
 .confirm-panel {
   max-width: var(--max-w);
   display: none;
 }
 .confirm-panel p { color: var(--ink); font-size: 18px; }
 .confirm-panel .btn { margin-top: 12px; }
-
-#confirmed:target ~ #confirm-static { display: block; }
-#confirmed:target ~ #join-form { display: none; }
 
 /* ---------- footer ---------- */
 .site-footer {
