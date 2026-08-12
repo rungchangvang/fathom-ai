@@ -247,6 +247,20 @@ p { max-width: 68ch; }
 }
 .contour--footer { opacity: 0.4; }
 
+.contour-divider {
+  position: relative;
+  height: 56px;
+  overflow: hidden;
+  opacity: 0.5;
+}
+.contour-divider svg {
+  position: absolute;
+  left: 0;
+  top: -90px;
+  width: 100%;
+  height: 260px;
+}
+
 /* ---------- what we do ---------- */
 .block-grid {
   display: grid;
