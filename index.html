@@ -150,33 +150,23 @@
 
         <div id="join-panel">
           <!--
-            This is a one-page site — no subpages (spec Section 3). The
-            #confirmed / :target pair below is a no-JS confirmation
-            mechanism that only fires if the form's backend supports a
-            post-submit redirect back to this URL (Formspree, Netlify
-            Forms, etc). Google Forms — what this form is currently wired
-            to — does not support that, so without JS the browser will
-            land on Google's own confirmation screen instead. With JS,
-            script.js swaps this panel's content directly and the page
-            never navigates away, which is what almost everyone will see.
+            This is a one-page site — no subpages (spec Section 3), and it
+            must never navigate away to Google's own confirmation screen —
+            so the form targets a hidden same-page iframe (below) instead
+            of the top-level window. That's a plain HTML attribute, not
+            JavaScript, so it holds even if JS fails, is blocked by an
+            extension, or never runs at all: the browser has nothing to
+            navigate away to, because the response loads into the iframe.
+            With JS, script.js listens for that iframe's load event and
+            swaps in the branded confirmation below in place.
           -->
-          <span id="confirmed" aria-hidden="true"></span>
+          <form id="join-form" action="https://docs.google.com/forms/d/e/1FAIpQLSeXJWe1YPE8uRXeFc25LRypXzyGgkcKU_62DGSoWc96O3Jjlw/formResponse" method="POST" target="fathom-submit-frame" novalidate>
 
           <!--
-            FORM BACKEND: Google Forms → linked Google Sheet.
-            Wired to the form at
-            .../1FAIpQLSeXJWe1YPE8uRXeFc25LRypXzyGgkcKU_62DGSoWc96O3Jjlw/.
-            If you ever rebuild that form, the entry.NNN ids below will
-            change — get fresh ones via the form's ⋮ menu → "Get pre-filled
-            link" and swap them in (see README.md).
-            Google Forms ignores unknown fields and does not support a
-            post-submit redirect, so without JS the browser will land on
-            Google's own plain confirmation screen after submitting — that's
-            a limit of using Forms as the backend, not a bug here. With JS
-            (script.js), the branded confirmation below is shown in place
-            and the page never navigates away.
+            If you ever rebuild the Google Form, the entry.NNN ids below
+            will change — get fresh ones via the form's ⋮ menu → "Get
+            pre-filled link" and swap them in (see README.md).
           -->
-          <form id="join-form" action="https://docs.google.com/forms/d/e/1FAIpQLSeXJWe1YPE8uRXeFc25LRypXzyGgkcKU_62DGSoWc96O3Jjlw/formResponse" method="POST" novalidate>
 
             <div class="field">
               <label for="f-name">Name</label>
@@ -226,12 +216,24 @@
             </div>
 
             <button class="btn btn-primary btn-submit" type="submit">Join the founding cohort</button>
+
+            <noscript>
+              <p class="noscript-note">This page won't visibly change after you click Join — that's expected. Your response is still recorded; check your email or the Discord for what's next.</p>
+            </noscript>
           </form>
+
+          <!--
+            The form submits into this invisible iframe (via target=
+            "fathom-submit-frame" above) instead of the top-level page, so
+            the browser has nothing to navigate away to — this is what
+            actually keeps people on the site, independent of JS.
+          -->
+          <iframe name="fathom-submit-frame" id="fathom-submit-frame" title="Form submission target" class="hidden-frame" aria-hidden="true" tabindex="-1"></iframe>
 
           <div id="confirm-static" class="confirm-panel">
             <p>You&rsquo;re in. First session is <strong>Wednesday, August 26</strong>.</p>
             <p>Join the Discord now &mdash; that&rsquo;s where everything happens between sessions.</p>
-            <a class="btn btn-primary" href="#" data-role="discord-link">Open Discord</a>
+            <a class="btn btn-primary" href="https://discord.gg/pHgJ7Yzr9" data-role="discord-link">Open Discord</a>
           </div>
         </div>
       </section>
@@ -243,7 +245,7 @@
         <use href="#contour-band"></use>
       </svg>
       <p class="footer-org">Fathom AI · Walton High School · Marietta, Georgia</p>
-      <a class="footer-discord" href="#" data-role="discord-link">Discord</a>
+      <a class="footer-discord" href="https://discord.gg/pHgJ7Yzr9" data-role="discord-link">Discord</a>
     </footer>
 
   </div>

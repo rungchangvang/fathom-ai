@@ -163,57 +163,47 @@
   renderPathways(PATHWAYS);
 
   /* ---------------------------------------------------------------
-     Join form — progressive enhancement.
-     Without JS: a normal POST to the form's action, with a hidden
-     _next field so the backend (Formspree/Netlify-style) redirects
-     to confirm.html. With JS: intercept, submit via fetch, and swap
-     in the confirmation copy in place so the person never leaves
-     the page.
+     Join form — submits into a hidden same-page iframe (see the
+     target="fathom-submit-frame" attribute in index.html), so the
+     browser never navigates away — that guarantee comes from plain
+     HTML and holds even if this script fails to run at all.
+
+     With JS: we still want the branded "You're in" confirmation rather
+     than nothing visibly happening. The iframe fires a "load" event
+     once Google's response finishes loading inside it — that's our
+     signal to swap in the confirmation panel.
   --------------------------------------------------------------- */
   var form = document.getElementById("join-form");
-  if (form) {
-    form.addEventListener("submit", function (event) {
-      var action = form.getAttribute("action");
-      if (!action || action === "#") {
-        // Backend not wired up yet — let it no-op rather than
-        // pretend to succeed. See README.md.
-        return;
-      }
-      event.preventDefault();
+  var frame = document.getElementById("fathom-submit-frame");
+  var formWasSubmitted = false;
 
+  if (form && frame) {
+    form.addEventListener("submit", function () {
+      formWasSubmitted = true;
       var submitBtn = form.querySelector(".btn-submit");
       if (submitBtn) submitBtn.textContent = "Sending…";
+      // No preventDefault — let the browser submit normally into the iframe.
+    });
 
-      fetch(action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" },
-      })
-        .then(function (response) {
-          if (response.ok) {
-            showConfirmation();
-          } else {
-            if (submitBtn) submitBtn.textContent = "Join the founding cohort";
-            form.submit(); // fall back to a normal navigation
-          }
-        })
-        .catch(function () {
-          form.submit();
-        });
+    frame.addEventListener("load", function () {
+      // Every iframe fires an initial "load" for its blank starting
+      // document too — only react once an actual submission happened.
+      if (formWasSubmitted) {
+        formWasSubmitted = false;
+        showConfirmation();
+      }
     });
   }
 
   function showConfirmation() {
     var panel = document.getElementById("join-panel");
     if (!panel) return;
-    var discordHref = document.querySelector('[data-role="discord-link"]');
-    var href = discordHref ? discordHref.getAttribute("href") : "#";
 
     panel.innerHTML =
       '<div class="confirm-panel" style="display:block">' +
       "<p>You&rsquo;re in. First session is <strong>Wednesday, August 26</strong>.</p>" +
       "<p>Join the Discord now &mdash; that&rsquo;s where everything happens between sessions.</p>" +
-      '<a class="btn btn-primary" href="' + href + '">Open Discord</a>' +
+      '<a class="btn btn-primary" href="https://discord.gg/pHgJ7Yzr9">Open Discord</a>' +
       "</div>";
   }
 })();
